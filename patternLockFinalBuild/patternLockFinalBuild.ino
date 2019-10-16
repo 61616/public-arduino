@@ -17,7 +17,9 @@
  *    for testing without a servo hooked up. If any password check fails debug data will be printed
  * by Nayan Sawyer
  * Final implementation of a project started years ago
- * version 1.0.0 Oct 16 2019
+ * version 1.0.1 Oct 16 2019
+ * changes 1.0.1:
+ *      added *void notify*
  */
 
 #include <Servo.h>
@@ -159,6 +161,17 @@ void open() {
   myServo.detach();
 }
 
+// Run servo so you know when the attempt has failed
+void notify(){
+  myServo.attach(servoPin);
+  delay(200);
+  myServo.write(110);
+  delay(500);
+  myServo.write(97);
+  delay(200);
+  myServo.detach();
+}
+
 /*
  *  PROGRAM CONTINUES
  */
@@ -178,6 +191,7 @@ void loop(){
       if(checkCombo(j)){
         break;
       }
+      notify();
     }
   }
 }
